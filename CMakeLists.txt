@@ -32,15 +32,21 @@ SETUP_TARGET_FOR_COVERAGE_COBERTURA(cobertura UnitTesting cobertura)
 find_library(CUNIT_PATH NAMES libcunit.a PATHS /usr/lib /usr/local/lib)
 find_path(CUNIT_INCLUDE_PATH NAMES CUnit.h PATHS /usr/include/CUnit /usr/local/include/CUnit)
 
-if(CUNIT_PATH)
-set(CUNIT_LIBRARY_PATH $CUNIT_PATH)
-else(CUNIT_PATH)
+#if(CUNIT_PATH)
+#set(CUNIT_LIBRARY_PATH $CUNIT_PATH)
+#else(CUNIT_PATH)
 ################################################################
 # External: CMocka
 ################################################################
-add_subdirectory(cmokka)
+#set(CUNIT_LIBRARY_PATH /usr/local/lib/)
+ExternalProject_Add(cmocka
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cmocka
+    CONFIGURE_COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/cmocka/build && cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Debug ..
+    BUILD_COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/cmocka/build && make #Build command
+    INSTALL_COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/cmocka/build && make 
+)
 
-endif(CUNIT_PATH)
+#endif(CUNIT_PATH)
 
 find_program(LCOV_PATH NAMES lcov PATHS /usr/bin /usr/local/bin)
 
@@ -68,6 +74,6 @@ add_subdirectory(testcases)
 add_test(UnitTesting ${EXECUTABLE_OUTPUT_PATH}/UnitTesting)
 
 add_executable(UnitTesting main.c)
-add_dependencies(UnitTesting locv cunit Stubs DUT testcases lint)
+add_dependencies(UnitTesting locv cmokka Stubs DUT testcases lint)
 
 target_link_libraries(UnitTesting Stubs DUT testcases libcunit.a gcov)
