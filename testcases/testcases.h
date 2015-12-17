@@ -8,7 +8,7 @@
 #ifndef TESTCASES_TESTCASES_H_
 #define TESTCASES_TESTCASES_H_
 
-#include "Basic.h"
+#include "cmocka.h"
 
 extern CU_ErrorCode setTestCases();
 
