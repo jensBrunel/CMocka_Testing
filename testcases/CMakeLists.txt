@@ -5,4 +5,5 @@ LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/DUT ${CMAKE_SOURCE_DIR}/Stubs)
 add_definitions(-DMODULE_TEST)
 
 add_library(testcases STATIC ${TEST_SOURCES} )
+add_dependencies(testcases cmocka)
 target_link_libraries(testcases DUT)

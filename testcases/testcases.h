@@ -8,9 +8,11 @@
 #ifndef TESTCASES_TESTCASES_H_
 #define TESTCASES_TESTCASES_H_
 
+#include <stdarg.h>
 #include "cmocka.h"
 
-extern CU_ErrorCode setTestCases();
+
+int runTestCases();
 
 
 
