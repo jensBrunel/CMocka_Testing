@@ -9,6 +9,7 @@ include(CTest)
 # Added for External Projects
 include(ExternalProject)
 include(wrap_functions.cmake)
+include(dut_sources.cmake)
 
 add_definitions(-DMODULE_TEST)
 
@@ -16,6 +17,10 @@ SET(CMAKE_C_FLAGS "-g -Wall -W -pedantic --coverage")
 SET(CMAKE_CXX_FLAGS "-g --coverage"
     CACHE STRING "Flags used by the C++ compiler during coverage builds."
     FORCE )
+STRING(REPLACE ";" ",-wrap," WRAP_FUNCTIONS_RAW "${WRAP_FUNCTIONS_RAW}")
+SET(WRAP_FUNCTIONS "-Wl,-wrap,${WRAP_FUNCTIONS_RAW}")
+message(${WRAP_FUNCTIONS})
+
 SET(CMAKE_EXE_LINKER_FLAGS "-fprofile-arcs -ftest-coverage ${WRAP_FUNCTIONS}")
 
 ################################################################
@@ -64,9 +69,9 @@ ExternalProject_Add(lcov
 endif(LCOV_PATH)
 
 if(CMOCKA_INCLUDE_PATH)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMOCKA_INCLUDE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/DUT ${CMAKE_CURRENT_SOURCE_DIR}/testcases ${CMAKE_SOURCE_DIR}/Stubs)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMOCKA_INCLUDE_PATH} ${DUT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/testcases ${CMAKE_SOURCE_DIR}/Stubs)
 else(CMOCKA_INCLUDE_PATH)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMOCKA_INCLUDE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/DUT ${CMAKE_CURRENT_SOURCE_DIR}/testcases ${CMAKE_SOURCE_DIR}/Stubs)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMOCKA_INCLUDE_PATH} ${DUT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/testcases ${CMAKE_SOURCE_DIR}/Stubs)
 endif(CMOCKA_INCLUDE_PATH)
 LINK_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR} ${CMOCKA_LIBRARY_PATH})
 
@@ -77,7 +82,7 @@ add_subdirectory(testcases)
 add_test(UnitTesting ${EXECUTABLE_OUTPUT_PATH}/UnitTesting)
 
 add_executable(UnitTesting main.c)
-add_dependencies(UnitTesting locvc mocka  Stubs DUT testcases )
+add_dependencies(UnitTesting lcov mocka  Stubs DUT testcases )
 
 if(CYGWIN)
 target_link_libraries(UnitTesting  Stubs DUT testcases libcmocka.dll.a gcov)

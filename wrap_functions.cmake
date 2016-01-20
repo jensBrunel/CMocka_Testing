@@ -1,1 +1,1 @@
-set(WRAP_FUNCTIONS -Wl,-wrap,malloc,-wrap,free )
+set(WRAP_FUNCTIONS_RAW malloc free )

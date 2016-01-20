@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <setjmp.h>
 #include <stdlib.h>
-#include "dut.h"
+#include "sds.h"
 #include "testcases.h"
 
 int main(int argc, const char* argv[])
 {
     int error = 0;
-    printf("\nTesting with CUnit\n\n");
+    printf("\nTesting with CMocka\n\n");
 
     if (0 == argc)
     {
