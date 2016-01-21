@@ -19,7 +19,7 @@ SET(CMAKE_CXX_FLAGS "-g --coverage"
     FORCE )
 STRING(REPLACE ";" ",-wrap," WRAP_FUNCTIONS_RAW "${WRAP_FUNCTIONS_RAW}")
 SET(WRAP_FUNCTIONS "-Wl,-wrap,${WRAP_FUNCTIONS_RAW}")
-message(${WRAP_FUNCTIONS})
+#message(${WRAP_FUNCTIONS})
 
 SET(CMAKE_EXE_LINKER_FLAGS "-fprofile-arcs -ftest-coverage ${WRAP_FUNCTIONS}")
 
@@ -32,6 +32,7 @@ include(CodeCoverage)
 include(CorrectWindowsPaths)
 
 SETUP_TARGET_FOR_COVERAGE(coverage UnitTesting coverage)
+SETUP_TARGET_FOR_COVERAGE_COBERTURA(cobertura UnitTesting cobertura)
 
 find_library(CMOCKA_PATH NAMES libcmocka.so PATHS /usr/lib /usr/local/lib)
 find_path(CMOCKA_INCLUDE_PATH NAMES cmocka.h PATHS /usr/include/ /usr/local/include/)
