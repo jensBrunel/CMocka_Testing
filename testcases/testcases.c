@@ -1,14 +1,20 @@
 #include <stdio.h>
 #include <setjmp.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #include "testcases.h"
 #include "sds.h"
 
+bool useWrapped;
 void simpleTest(void)
 {
-
-    assert_int_equal(0, sdscmp("Klaus", "Klaus"));
+    useWrapped = true;
+    sds name1 = "Klaus";
+    sds name2 = "Klaus";
+    will_return(__wrap_memcmp, 1);
+    assert_int_equal(1, sdscmp(name1, name2));
+    useWrapped = false;
 }
 
 void simpleTest2(void)

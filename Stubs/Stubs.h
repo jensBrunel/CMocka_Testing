@@ -11,4 +11,6 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+extern bool useWrapped;
+
 #endif /* STUBS_H_ */

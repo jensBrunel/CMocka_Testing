@@ -21,7 +21,7 @@ STRING(REPLACE ";" ",-wrap," WRAP_FUNCTIONS_RAW "${WRAP_FUNCTIONS_RAW}")
 SET(WRAP_FUNCTIONS "-Wl,-wrap,${WRAP_FUNCTIONS_RAW}")
 #message(${WRAP_FUNCTIONS})
 
-SET(CMAKE_EXE_LINKER_FLAGS "-fprofile-arcs -ftest-coverage ${WRAP_FUNCTIONS}")
+SET(CMAKE_EXE_LINKER_FLAGS "-O0 -fprofile-arcs -ftest-coverage ${WRAP_FUNCTIONS}")
 
 ################################################################
 # Set Module Path

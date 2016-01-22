@@ -1,1 +1,1 @@
-set(WRAP_FUNCTIONS_RAW malloc free )
+set(WRAP_FUNCTIONS_RAW malloc free memcmp)

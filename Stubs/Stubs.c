@@ -2,6 +2,9 @@
 #include "Stubs.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <setjmp.h>
+
+#include "cmocka.h"
 
 
 void* __real_malloc (size_t __size);
@@ -20,4 +23,22 @@ void __wrap_free(void *__ptr)
 {
    printf("Free: %p address\n", __ptr);
    __real_free(__ptr);
+}
+
+int __real_memcmp (const void *__s1, const void *__s2, size_t __n);
+
+bool useWrapped = false;
+int __wrap_memcmp (const void *__s1, const void *__s2, size_t __n)
+{
+   int result = 0;
+    if(useWrapped)
+    {
+        result = (int)mock();
+    }
+    else
+    {
+    printf("cmp: %p with %p, size is %i\n", __s1, __s2, __n);
+    result = __real_memcmp(__s1, __s2, __n);
+    }
+    return result;
 }
