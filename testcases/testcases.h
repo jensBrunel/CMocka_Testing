@@ -1,8 +1,8 @@
-/*
- * testcases.h
- *
- *  Created on: 17.09.2015
- *      Author: jens
+/**
+ * Testcase definitions
+ * Author: Jens Nelke
+ * Company: Brunel Communications
+ * Date: 25.01.2016
  */
 
 #ifndef TESTCASES_TESTCASES_H_

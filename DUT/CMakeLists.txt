@@ -1,3 +1,10 @@
+################################################################
+# CMakefile for the DUT lib
+# Author: Jens Nelke
+# Company: Brunel Communications
+# Date: 25.01.2016
+################################################################
+
 include(${PROJECT_SOURCE_DIR}/dut_sources.cmake) 
 
 LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/Stubs)

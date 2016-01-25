@@ -1,3 +1,10 @@
+/**
+ * Test case implementation
+ * Author: Jens Nelke
+ * Company: Brunel Communications
+ * Date: 25.01.2016
+ */
+
 #include <stdio.h>
 #include <setjmp.h>
 #include <stdlib.h>

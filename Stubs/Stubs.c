@@ -1,3 +1,10 @@
+/**
+ * Implementation of stubs
+ * Author: Jens Nelke
+ * Company: Brunel Communications
+ * Date: 25.01.2016
+ */
+
 #include <stdint.h>
 #include "Stubs.h"
 #include <stdio.h>

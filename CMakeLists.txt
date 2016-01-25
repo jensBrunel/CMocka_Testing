@@ -1,3 +1,10 @@
+################################################################
+# Main cmake files
+# Author: Jens Nelke
+# Company: Brunel Communications
+# Date: 25.01.2016
+################################################################
+
 cmake_minimum_required(VERSION 2.8.7)
 project(UnitTesting C)
 

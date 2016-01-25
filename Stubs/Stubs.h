@@ -1,8 +1,8 @@
-/*
- * Stubs.h
- *
- *  Created on: 16.11.2015
- *      Author: bcsjene
+/**
+ * Definition of stubs
+ * Author: Jens Nelke
+ * Company: Brunel Communications
+ * Date: 25.01.2016
  */
 
 #ifndef STUBS_H_

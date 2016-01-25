@@ -1,2 +1,2 @@
-# CMokka_Testing
-Unit testing with cmokka
+# CMocka_Testing
+Unit testing with cmocka
