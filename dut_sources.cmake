@@ -1,3 +1,4 @@
+#Source files in the DUT with relative path.
 set(DUT_SOURCES ${CMAKE_SOURCE_DIR}/DUT/SDS/sds.c)
+#Include files in the DUT with relative path.
 set(DUT_INCLUDES ${CMAKE_SOURCE_DIR}/DUT/SDS)
-#message(${DUT_INCLUDES})

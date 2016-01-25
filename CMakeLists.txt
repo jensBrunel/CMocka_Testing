@@ -11,16 +11,22 @@ include(ExternalProject)
 include(wrap_functions.cmake)
 include(dut_sources.cmake)
 
+################################################################
+# Compiler and linker
+################################################################
+#Flag can be used for defines
 add_definitions(-DMODULE_TEST)
 
+#Compiler flags for C and C++
 SET(CMAKE_C_FLAGS "-g -Wall -W -pedantic --coverage")
 SET(CMAKE_CXX_FLAGS "-g --coverage"
     CACHE STRING "Flags used by the C++ compiler during coverage builds."
     FORCE )
+#Wrap string for linker command is build
 STRING(REPLACE ";" ",-wrap," WRAP_FUNCTIONS_RAW "${WRAP_FUNCTIONS_RAW}")
 SET(WRAP_FUNCTIONS "-Wl,-wrap,${WRAP_FUNCTIONS_RAW}")
-#message(${WRAP_FUNCTIONS})
 
+#Linker flags
 SET(CMAKE_EXE_LINKER_FLAGS "-O0 -fprofile-arcs -ftest-coverage ${WRAP_FUNCTIONS}")
 
 ################################################################
@@ -28,6 +34,9 @@ SET(CMAKE_EXE_LINKER_FLAGS "-O0 -fprofile-arcs -ftest-coverage ${WRAP_FUNCTIONS}
 ################################################################
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
+################################################################
+# Codecoverage with LCOV and GCOVR
+################################################################
 include(CodeCoverage)
 include(CorrectWindowsPaths)
 
@@ -41,7 +50,7 @@ if(CMOCKA_PATH AND CMOCKA_INCLUDE_PATH)
 get_filename_component(CMOCKA_LIBRARY_PATH ${CMOCKA_PATH} PATH)
 else(CMOCKA_PATH AND CMOCKA_INCLUDE_PATH)
 ################################################################
-# External: CMocka
+# External: build and install CMocka
 ################################################################
 ExternalProject_Add(cmocka
     SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cmocka
@@ -59,7 +68,7 @@ if(LCOV_PATH)
 
 else(LCOV_PATH)
 ################################################################
-# External: lcov
+# External: build and install lcov
 ################################################################
 ExternalProject_Add(lcov
     SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lcov
@@ -69,6 +78,9 @@ ExternalProject_Add(lcov
 )
 endif(LCOV_PATH)
 
+################################################################
+# Include paths, libraries and subdirectories
+################################################################
 if(CMOCKA_INCLUDE_PATH)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMOCKA_INCLUDE_PATH} ${DUT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/testcases ${CMAKE_SOURCE_DIR}/Stubs)
 else(CMOCKA_INCLUDE_PATH)

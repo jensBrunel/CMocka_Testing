@@ -11,6 +11,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+/*Global flag allowing to trigger the wrapped code*/
 extern bool useWrapped;
 
 #endif /* STUBS_H_ */
