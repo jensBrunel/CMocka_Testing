@@ -47,6 +47,15 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 include(CodeCoverage)
 include(CorrectWindowsPaths)
 
+################################################################
+# Install command
+################################################################
+if(CYGWIN)
+set(MAKE_INSTALL_STRING make install)
+else(CYGWIN)
+set(MAKE_INSTALL_STRING sudo make install)
+endif(CYGWIN)
+
 SETUP_TARGET_FOR_COVERAGE(coverage UnitTesting coverage)
 SETUP_TARGET_FOR_COVERAGE_COBERTURA(cobertura UnitTesting cobertura)
 
@@ -63,7 +72,7 @@ ExternalProject_Add(cmocka
     SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cmocka
     CONFIGURE_COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/cmocka/build && cmake -DCMAKE_INSTALL_PREFIX=/usr/ -DCMAKE_BUILD_TYPE=Debug ..
     BUILD_COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/cmocka/build && make #Build command
-    INSTALL_COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/cmocka/build && make install
+    INSTALL_COMMAND cd ${CMAKE_CURRENT_SOURCE_DIR}/cmocka/build && ${MAKE_INSTALL_STRING}
 )
 set(CMOCKA_INCLUDE_PATH /usr/include/)
 set(CMOCKA_LIBRARY_PATH /usr/lib/)
